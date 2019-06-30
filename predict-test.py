@@ -19,7 +19,7 @@ def build_predictions(file):
     wav, rate = librosa.load(file, sr=16000)
     #rate, wav = wavfile.read(file)
     
-    for i in range(0, wav.shape[0]-config.step, config.step): #'x10' for fewer samplepoints 
+    for i in tqdm(range(0, wav.shape[0]-config.step, config.step)): #'x10' for fewer samplepoints 
         sample = wav[i:i+config.step]
         x = mfcc(sample, rate, numcep=config.nfeat,
                  nfilt=config.nfilt, nfft=config.nfft)
@@ -48,7 +48,7 @@ with open(p_path, 'rb') as handle:
     
 model = load_model('models/cnn_model1.model')
 
-y_true, y_pred, fn_prob = build_predictions('tram_demo/test_files/tram-2018-12-05-16-20-38.wav')
+y_true, y_pred, fn_prob = build_predictions('tram_demo/test_files/tram-2018-12-07-15-32-08.wav')
 #acc_score = accuracy_score(y_true=y_true, y_pred=y_pred)
 
 df = pd.DataFrame.from_dict(fn_prob, orient='index')
