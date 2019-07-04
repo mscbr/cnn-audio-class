@@ -3,11 +3,11 @@ import pickle
 import os
 import numpy as np
 from tqdm import tqdm
-from scipy.io import wavfile
+#from scipy.io import wavfile
 from python_speech_features import mfcc
 from keras.models import load_model
 import pandas as pd
-from sklearn.metrics import accuracy_score
+#from sklearn.metrics import accuracy_score
 import librosa
 
 def build_predictions(file):

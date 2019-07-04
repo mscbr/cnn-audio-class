@@ -14,7 +14,7 @@ from tqdm import tqdm
 from python_speech_features import mfcc
 
 import pickle
-from keras.cacallbacks import ModelCheckpoint
+from keras.callbacks import ModelCheckpoint
 from cfg import Config
 
 #df = pd.read_csv('instruments.csv')
@@ -122,7 +122,7 @@ df.set_index('filename', inplace=True)
 classes = list(np.unique(df['label']))
 class_dist = df.groupby(['label'])['length'].mean()
 
-n_samples = 2*int(df['length'].sum() / 0.1)
+n_samples = 4*int(df['length'].sum() / 0.1)
 prob_dist = class_dist / class_dist.sum()
 choices = np.random.choice(class_dist.index, p=prob_dist)
 
@@ -135,7 +135,7 @@ ax.axis('equal')
 plt.show()
 
 config = Config(mode='conv')
-
+X, y = build_rand_feat()
 if config.mode == 'conv':
     X, y = build_rand_feat()
     y_flat = np.argmax(y, axis=1)
